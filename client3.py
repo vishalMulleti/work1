@@ -32,11 +32,19 @@ N = 500
 def getDataPoint(quote):
     """ Produce all the needed values to generate a datapoint """
     """ ------------- Update this function ------------- """
+<<<<<<< Updated upstream
     stocks = quote['stock']
     bid_prices = float(quote['top_bid']['price'])
     ask_prices = float(quote['top_ask']['price'])
     prices = (bid_price + ask_price) / 2
     return stocks, bid_prices, ask_prices, prices
+=======
+    stock = quote['stock']
+    bid_price = float(quote['top_bid']['price'])
+    ask_price = float(quote['top_ask']['price'])
+    price = bid_price + ask_price / 2
+    return stock, bid_price, ask_price, price
+>>>>>>> Stashed changes
 
 
 def getRatio(price_a, price_b):
@@ -61,4 +69,8 @@ if __name__ == "__main__":
             prices[stocks] = prices
             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stocks, bid_prices, ask_prices, prices))
 
+<<<<<<< Updated upstream
         print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
+=======
+        print("Ratio %s" % getRatio(price["ABC"], price["DEF"]))
+>>>>>>> Stashed changes
