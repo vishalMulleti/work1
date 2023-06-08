@@ -99,7 +99,7 @@ def add_book(book, order, size, _age=10):
             yield o, s, age - 1
 
 
-def clear_order(order, size, book, op=operator.ge, _notional=0):
+def clear_order(order, size, book, op = operator.le, _notional=0):
     """ Try to clear a sized order against a book, returning a tuple of
         (notional, new_book) if successful, and None if not.  _notional is a
         recursive accumulator and should not be provided by the caller.
@@ -301,32 +301,38 @@ class App(object):
             t2, bids2, asks2 = next(self._current_book_2)
         t = t1 if t1 > t2 else t2
         print('Query received @ t%s' % t)
-        return [{
-            'id': x and x.get('id', None),
-            'stock': 'ABC',
-            'timestamp': str(t),
-            'top_bid': bids1 and {
-                'price': bids1[0][0],
-                'size': bids1[0][1]
-            },
-            'top_ask': asks1 and {
-                'price': asks1[0][0],
-                'size': asks1[0][1]
-            }
+        return [
+    {
+        'id': x and x.get('id', None),
+        'stock': 'ABC',
+        'timestamp': str(t),
+        'top_bid': bids1 and {
+            'price': bids1[0][0],
+            'size': bids1[0][1]
         },
-            {
-                'id': x and x.get('id', None),
-                'stock': 'DEF',
-                'timestamp': str(t),
-                'top_bid': bids2 and {
-                    'price': bids2[0][0],
-                    'size': bids2[0][1]
-                },
-                'top_ask': asks2 and {
-                    'price': asks2[0][0],
-                    'size': asks2[0][1]
-                }
-            }]
+        'top_ask': asks1 and {
+            'price': asks1[0][0],
+            'size': asks1[0][1]
+        }
+    },
+    {
+        'id': x and x.get('id', None),
+        'stock': 'DEF',
+        'timestamp': str(t),
+        'top_bid': bids2 and {
+            'price': bids2[0][0],
+            'size': bids2[0][1]
+        },
+        'top_ask': asks2 and {
+            'price': asks2[0][0],
+            'size': asks2[0][1]
+        }
+    },
+    {
+        'ratio': bids1[0][0] / bids2[0][0] if bids1 and bids2 else None
+    }
+]
+
 
 
 ################################################################################
