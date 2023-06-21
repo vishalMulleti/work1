@@ -1,56 +1,35 @@
-From ad091971f2c87ebde968239129ba48881ac542c6 Mon Sep 17 00:00:00 2001
+From 0146e9f1d59f07189a95e755248168084cd61f89 Mon Sep 17 00:00:00 2001
 From: Sujash Banerjee <sujashbanerjee@gmail.com>
-Date: Wed, 21 Jun 2023 12:11:43 +0530
+Date: Wed, 21 Jun 2023 12:33:14 +0530
 Subject: [PATCH] first commit
 
 ---
- .cph/.server3.py_6abf8448bb2c1912049529461485bb34.prob | 1 +
- client3.py                                             | 8 ++++++--
- 2 files changed, 7 insertions(+), 2 deletions(-)
- create mode 100644 .cph/.server3.py_6abf8448bb2c1912049529461485bb34.prob
+ client_test.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/.cph/.server3.py_6abf8448bb2c1912049529461485bb34.prob b/.cph/.server3.py_6abf8448bb2c1912049529461485bb34.prob
-new file mode 100644
-index 0000000..9ae5268
---- /dev/null
-+++ b/.cph/.server3.py_6abf8448bb2c1912049529461485bb34.prob
-@@ -0,0 +1 @@
-+{"name":"Local: server3","url":"d:\\F Drive\\JPMC\\forage-jpmc-swe-task-1\\server3.py","tests":[{"id":1687328917831,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\F Drive\\JPMC\\forage-jpmc-swe-task-1\\server3.py","group":"local","local":true}
-\ No newline at end of file
-diff --git a/client3.py b/client3.py
-index 3fc09b7..f413c34 100644
---- a/client3.py
-+++ b/client3.py
-@@ -35,14 +35,16 @@ def getDataPoint(quote):
-     stock = quote['stock']
-     bid_price = float(quote['top_bid']['price'])
-     ask_price = float(quote['top_ask']['price'])
--    price = bid_price
-+    price = (bid_price+ask_price)/2
-     return stock, bid_price, ask_price, price
+diff --git a/client_test.py b/client_test.py
+index af2bf26..ec7453f 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -8,14 +8,16 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++    for quote in quotes:
++       self.assertEqual(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],quote['top_ask']['price'],quote['top_bid']['price']+(quote['top_ask']['price'])/2))
+   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+     quotes = [
+       {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++    for quote in quotes:
++       self.assertEqual(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],quote['top_ask']['price'],quote['top_bid']['price']+(quote['top_ask']['price'])/2))
  
+   """ ------------ Add more unit tests ------------ """
  
- def getRatio(price_a, price_b):
-     """ Get ratio of price_a and price_b """
-     """ ------------- Update this function ------------- """
--    return 1
-+    if(price_b==0):
-+     return 
-+    return price_a/price_b
- 
- 
- # Main
-@@ -52,8 +54,10 @@ if __name__ == "__main__":
-         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
- 
-         """ ----------- Update to get the ratio --------------- """
-+        prices={}
-         for quote in quotes:
-             stock, bid_price, ask_price, price = getDataPoint(quote)
-+            prices[stock]=price
-             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
- 
-         print("Ratio %s" % getRatio(price, price))
 -- 
 2.32.0.windows.2
 
