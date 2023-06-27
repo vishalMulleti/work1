@@ -1,4 +1,4 @@
-import unittest
+
 from client3 import getDataPoint
 
 class ClientTest(unittest.TestCase):
