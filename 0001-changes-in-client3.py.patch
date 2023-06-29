@@ -1,0 +1,25 @@
+From b7a320d13fbc1cd198f2be3e5e63819c3a917f04 Mon Sep 17 00:00:00 2001
+From: pahadiaarun <pahadiaarun@gmail.com>
+Date: Fri, 30 Jun 2023 02:08:47 +0530
+Subject: [PATCH] changes in client3.py
+
+---
+ client3.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/client3.py b/client3.py
+index 276e688..1712f29 100644
+--- a/client3.py
++++ b/client3.py
+@@ -42,7 +42,7 @@ def getDataPoint(quote):
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    if(price_b==1):
++    if(price_b==0):
+         return
+     return price_a/price_b
+ 
+-- 
+2.33.0.windows.2
+
