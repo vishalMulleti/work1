@@ -8,6 +8,11 @@ class ClientTest(unittest.TestCase):
       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
     ]
     """ ------------ Add the assertion below ------------ """
+    result = getDataPoint(quotes)
+    expected_result = (quotes[0]['stock'], quotes[0]['top_bid']['price'], (quotes[0]['top_ask']['price'] + quotes[0]['top_bid']['price']) / 2)
+    self.assertEqual(result, expected_result)
+    
+
 
   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
     quotes = [
@@ -15,11 +20,15 @@ class ClientTest(unittest.TestCase):
       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
     ]
     """ ------------ Add the assertion below ------------ """
+    result = getDataPoint(quotes)
+    expected_result = (quotes[1]['stock'], quotes[1]['top_bid']['price'],
+                           (quotes[1]['top_ask']['price'] + quotes[1]['top_bid']['price']) / 2)
+    
+    self.assertEqual(result, expected_result)
 
+     
 
   """ ------------ Add more unit tests ------------ """
-
-
 
 if __name__ == '__main__':
     unittest.main()
