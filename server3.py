@@ -19,7 +19,7 @@
 #  DEALINGS IN THE SOFTWARE.
 
 import csv
-# from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+#from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import http.server
 import json
 import operator
@@ -27,7 +27,7 @@ import os.path
 import re
 import threading
 from datetime import timedelta, datetime
-# from itertools import izip
+#from itertools import izip
 from random import normalvariate, random
 from socketserver import ThreadingMixIn
 
@@ -148,7 +148,7 @@ def order_book(orders, book, stock_name):
 
 def generate_csv():
     """ Generate a CSV of order history. """
-    with open('test.csv', 'wb') as f:
+    with open(r'C:\Users\Jell_\forage-jpmc-swe-task-1\test.csv', 'wb') as f:
         writer = csv.writer(f)
         for t, stock, side, order, size in orders(market()):
             if t > MARKET_OPEN + SIM_LENGTH:
@@ -158,7 +158,7 @@ def generate_csv():
 
 def read_csv():
     """ Read a CSV or order history into a list. """
-    with open('test.csv', 'rt') as f:
+    with open(r'C:\Users\Jell_\forage-jpmc-swe-task-1\test.csv', 'rt') as f:
         for time, stock, side, order, size in csv.reader(f):
             yield dateutil.parser.parse(time), stock, side, float(order), int(size)
 
