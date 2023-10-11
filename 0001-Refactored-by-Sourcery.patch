@@ -1,0 +1,78 @@
+From 3ee9e774f5d920a0f33563771ea065f95ef37177 Mon Sep 17 00:00:00 2001
+From: Sourcery AI <>
+Date: Wed, 11 Oct 2023 08:03:12 +0000
+Subject: [PATCH] 'Refactored by Sourcery'
+
+---
+ client3.py |  6 +++---
+ server3.py | 11 +++++------
+ 2 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..ee1ef0e 100644
+--- a/client3.py
++++ b/client3.py
+@@ -36,7 +36,7 @@ def getDataPoint(quote):
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+     price = bid_price
+-    return stock, bid_price, ask_price, price
++    return stock, price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+@@ -54,6 +54,6 @@ if __name__ == "__main__":
+         """ ----------- Update to get the ratio --------------- """
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
+-            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++            print(f"Quoted {stock} at (bid:{bid_price}, ask:{ask_price}, price:{price})")
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print(f"Ratio {getRatio(price, price)}")
+diff --git a/server3.py b/server3.py
+index 1836de2..f5e1e02 100644
+--- a/server3.py
++++ b/server3.py
+@@ -41,7 +41,7 @@ import dateutil.parser
+ 
+ REALTIME = True
+ SIM_LENGTH = timedelta(days=365 * 5)
+-MARKET_OPEN = datetime.today().replace(hour=0, minute=30, second=0)
++MARKET_OPEN = datetime.now().replace(hour=0, minute=30, second=0)
+ 
+ # Market parms
+ #       min  / max  / std
+@@ -120,8 +120,7 @@ def clear_book(buy=None, sell=None):
+     """
+     while buy and sell:
+         order, size, _ = buy[0]
+-        new_book = clear_order(order, size, sell)
+-        if new_book:
++        if new_book := clear_order(order, size, sell):
+             sell = new_book[1]
+             buy = buy[1:]
+         else:
+@@ -205,7 +204,7 @@ def get(req_handler, routes):
+     """ Map a request to the appropriate route of a routes instance. """
+     for name, handler in routes.__class__.__dict__.items():
+         if hasattr(handler, "__route__"):
+-            if None != re.search(handler.__route__, req_handler.path):
++            if re.search(handler.__route__, req_handler.path) != None:
+                 req_handler.send_response(200)
+                 req_handler.send_header('Content-Type', 'application/json')
+                 req_handler.send_header('Access-Control-Allow-Origin', '*')
+@@ -299,8 +298,8 @@ class App(object):
+             self.__init__()
+             t1, bids1, asks1 = next(self._current_book_1)
+             t2, bids2, asks2 = next(self._current_book_2)
+-        t = t1 if t1 > t2 else t2
+-        print('Query received @ t%s' % t)
++        t = max(t1, t2)
++        print(f'Query received @ t{t}')
+         return [{
+             'id': x and x.get('id', None),
+             'stock': 'ABC',
+-- 
+2.34.1
+
