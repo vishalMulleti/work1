@@ -1,0 +1,115 @@
+diff --git a/client3.py b/client3.py
+index 3fc09b7..6783db4 100644
+--- a/client3.py
++++ b/client3.py
+@@ -28,10 +28,13 @@ QUERY = "http://localhost:8080/query?id={}"
+ # 500 server request
+ N = 500
+ 
++# variables to store the last prices of two stocks
++last_price_a = None
++last_price_b = None
++
+ 
+ def getDataPoint(quote):
+     """ Produce all the needed values to generate a datapoint """
+-    """ ------------- Update this function ------------- """
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+@@ -41,19 +44,33 @@ def getDataPoint(quote):
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+-    """ ------------- Update this function ------------- """
+-    return 1
++    if price_b is not None and price_b != 0:
++        return price_a / price_b
++    return None
+ 
+ 
+ # Main
+-if __name__ == "__main__":
++if __name__ == "__main":
+     # Query the price once every N seconds.
+     for _ in iter(range(N)):
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+-
+-        """ ----------- Update to get the ratio --------------- """
++        
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
+-            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++            if stock == 'AAPL':
++                price_a = price
++            elif stock == 'MSFT':
++                price_b = price
++
++        # Check if we have both prices
++        if price_a is not None and price_b is not None:
++            price_ratio = getRatio(price_a, price_b)
++            if price_ratio is not None:
++                print("Quoted AAPL at (bid:%s, ask:%s, price:%s)" % (bid_price, ask_price, price_a))
++                print("Quoted MSFT at (bid:%s, ask:%s, price:%s)" % (bid_price, ask_price, price_b))
++                print("Ratio %s" % price_ratio)
++        else:
++            print("Missing price data for one or both stocks")
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        last_price_a = price_a
++        last_price_b = price_b
+\ No newline at end of file
+diff --git a/client_test.py b/client_test.py
+index af2bf26..4b48a33 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -2,24 +2,36 @@ import unittest
+ from client3 import getDataPoint
+ 
+ class ClientTest(unittest.TestCase):
+-  def test_getDataPoint_calculatePrice(self):
+-    quotes = [
+-      {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
++    def test_getDataPoint_calculatePrice(self):
++        quotes = [
++            {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++            {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++        ]
+ 
+-  def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+-    quotes = [
+-      {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
++        # Call the getDataPoint function with the first quote
++        stock, bid_price, ask_price, price = getDataPoint(quotes[0])
+ 
++        # Add assertions to verify the correctness of the calculated price
++        self.assertEqual(stock, 'ABC')
++        self.assertEqual(bid_price, 120.48)
++        self.assertEqual(ask_price, 121.2)
++        self.assertEqual(price, bid_price)
+ 
+-  """ ------------ Add more unit tests ------------ """
++    def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
++        quotes = [
++            {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++            {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++        ]
+ 
++        # Call the getDataPoint function with the second quote
++        stock, bid_price, ask_price, price = getDataPoint(quotes[1])
+ 
++        # Add assertions to verify the correctness of the calculated price
++        self.assertEqual(stock, 'DEF')
++        self.assertEqual(bid_price, 117.87)
++        self.assertEqual(ask_price, 121.68)
++        self.assertEqual(price, bid_price)
+ 
++    
+ if __name__ == '__main__':
+     unittest.main()
