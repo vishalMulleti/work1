@@ -260,8 +260,12 @@ class App(object):
         self._data_1 = order_book(read_csv(), self._book_1, 'ABC')
         self._data_2 = order_book(read_csv(), self._book_2, 'DEF')
         self._rt_start = datetime.now()
-        self._sim_start, _, _ = next(self._data_1)
-        self.read_10_first_lines()
+        try:
+            self._sim_start, _, _ = next(self._data_1)
+            self.read_10_first_lines()
+        except StopIteration:
+            print("Iteration is exhausted")
+        
 
     @property
     def _current_book_1(self):
