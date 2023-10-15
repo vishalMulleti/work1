@@ -265,7 +265,6 @@ class App(object):
             self.read_10_first_lines()
         except StopIteration:
             print("Iteration is exhausted")
-        
 
     @property
     def _current_book_1(self):
