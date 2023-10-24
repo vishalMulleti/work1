@@ -1,0 +1,7 @@
+Change the port number to 6080 from 8080 in server3.py
+
+Done all the below 3 changes in client3.py,
+1. Updated getDataPoint function to return the correct tuple of stock name, bid_price, ask_price, and price.
+2. Updated getRatio function to return the ratio of the two stock prices.
+3. Updated the main function to output the correct stock info, prices, and ratio.
+Added tests to the methods in the client application file client_test.py
