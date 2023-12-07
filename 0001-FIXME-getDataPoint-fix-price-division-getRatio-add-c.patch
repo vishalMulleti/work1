@@ -1,0 +1,82 @@
+From 32ffe2cc0ee680e025b35887d8f82dca94cf1e06 Mon Sep 17 00:00:00 2001
+From: "Nick Mensah(Nokore.dev)" <ndm.acct85@gmail.com>
+Date: Thu, 7 Dec 2023 06:18:09 -0600
+Subject: [PATCH] FIXME: getDataPoint= fix price division, getRatio add
+ conditional statement for ratio also get for divide by zero error, Add stock
+ to an array
+
+---
+ .idea/forage-jpmc-swe-task-1.iml |  3 ++-
+ .idea/misc.xml                   |  5 ++++-
+ client3.py                       | 12 +++++++++---
+ 3 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/.idea/forage-jpmc-swe-task-1.iml b/.idea/forage-jpmc-swe-task-1.iml
+index 7a6134d..9afde71 100644
+--- a/.idea/forage-jpmc-swe-task-1.iml
++++ b/.idea/forage-jpmc-swe-task-1.iml
+@@ -3,8 +3,9 @@
+   <component name="NewModuleRootManager">
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
++      <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.12 (forage-jpmc-swe-task-1) (2)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+   <component name="PyDocumentationSettings">
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index 94f94f8..0fbffc1 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -1,4 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (forage-jpmc-swe-task-1)" project-jdk-type="Python SDK" />
++  <component name="Black">
++    <option name="sdkName" value="Python 3.12 (forage-jpmc-swe-task-1) (2)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (forage-jpmc-swe-task-1) (2)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+diff --git a/client3.py b/client3.py
+index 3fc09b7..346a549 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,18 @@ def getDataPoint(quote):
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price + ask_price) / 2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    if price_b == 0:
++        return
++    else:
++        return price_a / price_b
++
+ 
+ 
+ # Main
+@@ -52,8 +56,10 @@ if __name__ == "__main__":
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+         """ ----------- Update to get the ratio --------------- """
++        prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[ stock ] = price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
+-- 
+2.41.0.windows.3
+
