@@ -31,7 +31,8 @@ from datetime import timedelta, datetime
 from random import normalvariate, random
 from socketserver import ThreadingMixIn
 
-import dateutil.parser
+import dateutil
+from dateutil import parser
 
 ################################################################################
 #
