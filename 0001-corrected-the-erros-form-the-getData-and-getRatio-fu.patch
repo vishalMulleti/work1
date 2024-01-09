@@ -1,0 +1,81 @@
+From 410e029379a6b74eb2dd14f844f0b3cdcd1c5c8d Mon Sep 17 00:00:00 2001
+From: FELONYANGO <felixonyango951@gmail.com>
+Date: Tue, 9 Jan 2024 10:15:24 +0300
+Subject: [PATCH] corrected the erros form the getData and getRatio function
+
+---
+ README.md  | 11 +++++++++++
+ client3.py | 10 +++++++---
+ server3.py |  3 ++-
+ 3 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/README.md b/README.md
+index 14926f5..f649b87 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,13 @@
++
+ # JPMC Task 1
+ Starter repo for task 1 of the JPMC software engineering program
++
++# Here is the background information on your task
++
++You’ve been asked to assist with some development to add a chart to a trader’s dashboard allowing them to better identify under/over-valued stocks.
++
++The trader would like to be able to monitor two historically correlated stocks and be able to visualise when the correlation between the two weakens (i.e. one stock moves proportionally more than the historical correlation would imply). This could indicate a potential trade strategy to simultaneously buy the relatively underperforming stock and sell the relatively outperforming stock. Assuming the two prices subsequently converge, the trade should be profitable.
++
++Most data visualisation for our traders is built on JPMorgan Chase's Perspective data visualisation software, which is now open source. If you want to explore that, a link is provided in the resources section.
++
++Before implementing this request using perspective, first, you’ll need to interface with the relevant financial data feed and make the necessary adjustments to facilitate the monitoring of potential trade opportunities.
+diff --git a/client3.py b/client3.py
+index 3fc09b7..c7bcc02 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,16 @@ def getDataPoint(quote):
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price+ask_price)/2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    if (price_b==0):
++        return
++    return price_a/price_b
+ 
+ 
+ # Main
+@@ -52,8 +54,10 @@ if __name__ == "__main__":
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+         """ ----------- Update to get the ratio --------------- """
++        prices={}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[stock]= price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(prices["ABC"], prices['DEF']))
+diff --git a/server3.py b/server3.py
+index 1836de2..5aca589 100644
+--- a/server3.py
++++ b/server3.py
+@@ -31,7 +31,8 @@ from datetime import timedelta, datetime
+ from random import normalvariate, random
+ from socketserver import ThreadingMixIn
+ 
+-import dateutil.parser
++import dateutil
++from dateutil import parser
+ 
+ ################################################################################
+ #
+-- 
+2.37.3.windows.1
+
