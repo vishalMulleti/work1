@@ -21,6 +21,7 @@
 import json
 import random
 import urllib.request
+import urllib.error
 
 # Server API URLs
 QUERY = "http://localhost:8080/query?id={}"
@@ -45,11 +46,17 @@ def getRatio(price_a, price_b):
     return 1
 
 
+''' --------------------------------variable scope issue ------------------------------- 
 # Main
 if __name__ == "__main__":
     # Query the price once every N seconds.
     for _ in iter(range(N)):
-        quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+        try:
+            quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+        except urllib.error.URLError as e:
+            print(f"URL Error: {e.reason}")
+        except ConnectionResetError:
+            print("Connection was reset by peer. Trying again...")
 
         """ ----------- Update to get the ratio --------------- """
         for quote in quotes:
@@ -57,3 +64,26 @@ if __name__ == "__main__":
             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
 
         print("Ratio %s" % getRatio(price, price))
+'''
+
+''' -------------------------------- Updated variable function -------------------------------'''       
+# Main
+if __name__ == "__main__":
+    # Query the price once every N seconds.
+    for _ in iter(range(N)):
+        try:
+            quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+
+            """ ----------- Update to get the ratio --------------- """
+            for quote in quotes:
+                stock, bid_price, ask_price, price = getDataPoint(quote)
+                print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+
+            print("Ratio %s" % getRatio(price, price))
+
+        except urllib.error.URLError as e:
+            print(f"URL Error: {e.reason}")
+            continue
+        except ConnectionResetError:
+            print("Connection was reset by peer. Trying again...")
+            continue
