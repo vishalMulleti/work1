@@ -1,0 +1,380 @@
+From 879221fec2b863d37d5b493f02a530a8098ef6ef Mon Sep 17 00:00:00 2001
+From: Joe Ferrer <joe@theforage.com>
+Date: Wed, 1 Mar 2023 00:11:51 +1100
+Subject: [PATCH 1/9] Re-add sample unit test
+
+---
+ client_test.py | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+ create mode 100644 client_test.py
+
+diff --git a/client_test.py b/client_test.py
+new file mode 100644
+index 0000000..af2bf26
+--- /dev/null
++++ b/client_test.py
+@@ -0,0 +1,25 @@
++import unittest
++from client3 import getDataPoint
++
++class ClientTest(unittest.TestCase):
++  def test_getDataPoint_calculatePrice(self):
++    quotes = [
++      {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++    ]
++    """ ------------ Add the assertion below ------------ """
++
++  def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
++    quotes = [
++      {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++    ]
++    """ ------------ Add the assertion below ------------ """
++
++
++  """ ------------ Add more unit tests ------------ """
++
++
++
++if __name__ == '__main__':
++    unittest.main()
+-- 
+2.43.0
+
+
+From 53f1885f2d5a73fa57bfc6673855932d19634772 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 12:35:15 -0500
+Subject: [PATCH 2/9] git ignore of virtual environment dependencies
+
+---
+ .gitignore | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..d1db8b5
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++virtualenvironment/
+-- 
+2.43.0
+
+
+From 787a20361b7fc272ac084cd9dfd895a253dfb26b Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 13:05:08 -0500
+Subject: [PATCH 3/9] Updated quote variable error
+
+---
+ client3.py | 32 +++++++++++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..382fa25 100644
+--- a/client3.py
++++ b/client3.py
+@@ -21,6 +21,7 @@
+ import json
+ import random
+ import urllib.request
++import urllib.error
+ 
+ # Server API URLs
+ QUERY = "http://localhost:8080/query?id={}"
+@@ -45,11 +46,17 @@ def getRatio(price_a, price_b):
+     return 1
+ 
+ 
++''' --------------------------------variable scope issue ------------------------------- 
+ # Main
+ if __name__ == "__main__":
+     # Query the price once every N seconds.
+     for _ in iter(range(N)):
+-        quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
++        try:
++            quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
++        except urllib.error.URLError as e:
++            print(f"URL Error: {e.reason}")
++        except ConnectionResetError:
++            print("Connection was reset by peer. Trying again...")
+ 
+         """ ----------- Update to get the ratio --------------- """
+         for quote in quotes:
+@@ -57,3 +64,26 @@ if __name__ == "__main__":
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+         print("Ratio %s" % getRatio(price, price))
++'''
++
++''' -------------------------------- Updated variable function -------------------------------'''       
++# Main
++if __name__ == "__main__":
++    # Query the price once every N seconds.
++    for _ in iter(range(N)):
++        try:
++            quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
++
++            """ ----------- Update to get the ratio --------------- """
++            for quote in quotes:
++                stock, bid_price, ask_price, price = getDataPoint(quote)
++                print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++
++            print("Ratio %s" % getRatio(price, price))
++
++        except urllib.error.URLError as e:
++            print(f"URL Error: {e.reason}")
++            continue
++        except ConnectionResetError:
++            print("Connection was reset by peer. Trying again...")
++            continue
+-- 
+2.43.0
+
+
+From 114a2ae0b157a4f9b1ec0f94451ed25d3e4b2612 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 13:07:34 -0500
+Subject: [PATCH 4/9] Build new branch to test on a new container
+
+---
+ dockertest/dockerfile | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+ create mode 100644 dockertest/dockerfile
+
+diff --git a/dockertest/dockerfile b/dockertest/dockerfile
+new file mode 100644
+index 0000000..2190003
+--- /dev/null
++++ b/dockertest/dockerfile
+@@ -0,0 +1,15 @@
++# Use an official Python runtime as a parent image
++FROM python:3.9-slim
++
++# Set the working directory in the container
++WORKDIR /app
++
++# Copy the current directory contents into the container at /app
++COPY . .
++
++# Install any needed dependencies specified in requirements.txt
++RUN pip install --no-cache-dir -r requirements.txt
++
++
++# Run server3.py when the container launches
++CMD ["python", "server3.py"]
+-- 
+2.43.0
+
+
+From 0fb1f2c7bbebd17d95445ea21128c92dfe8af57e Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 13:14:11 -0500
+Subject: [PATCH 5/9] worked on Docker container, python image
+
+---
+ dockertest/dockerfile => Dockerfile | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename dockertest/dockerfile => Dockerfile (100%)
+
+diff --git a/dockertest/dockerfile b/Dockerfile
+similarity index 100%
+rename from dockertest/dockerfile
+rename to Dockerfile
+-- 
+2.43.0
+
+
+From 22b7016b4dbbd8479f190307a1ef656a4e7810f9 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 13:24:30 -0500
+Subject: [PATCH 6/9] Update client3, per guidelines, dont work local, use
+ docker
+
+---
+ client3.py | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..5e65716 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,18 @@ def getDataPoint(quote):
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price + ask_price) / 2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    '''Also create some unit tests for this function in the client_test.py file.'''
++    if (price_b == 0):
++        # when price_b is 0 avoid throwing ZeroDivisionError
++        return
++    return price_a/price_b
+ 
+ 
+ # Main
+@@ -52,8 +56,9 @@ if __name__ == "__main__":
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+         """ ----------- Update to get the ratio --------------- """
++        prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
+-- 
+2.43.0
+
+
+From 505a230965e516baf8a24fedd603326e6b289575 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 14:13:15 -0500
+Subject: [PATCH 7/9] edit key trouble bc deinfining ABC in client3.py
+
+---
+ Dockerfile | 3 +++
+ client3.py | 5 ++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/Dockerfile b/Dockerfile
+index 2190003..629c45d 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -10,6 +10,9 @@ COPY . .
+ # Install any needed dependencies specified in requirements.txt
+ RUN pip install --no-cache-dir -r requirements.txt
+ 
++# Expose the port your application runs on
++EXPOSE 8080
+ 
+ # Run server3.py when the container launches
+ CMD ["python", "server3.py"]
++
+diff --git a/client3.py b/client3.py
+index 5e65716..c411b61 100644
+--- a/client3.py
++++ b/client3.py
+@@ -61,4 +61,7 @@ if __name__ == "__main__":
+             stock, bid_price, ask_price, price = getDataPoint(quote)
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
++        if 'ABC' in prices:
++            value = prices['ABC']
++            
++    print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
+-- 
+2.43.0
+
+
+From 0c011841d5c9581415d4832828eec4c86bcfc726 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 14:34:16 -0500
+Subject: [PATCH 8/9] Add getDataPoint unit tests and getRatio unit tests & rm
+ pycache from gitignore
+
+---
+ .gitignore     |  1 +
+ client_test.py | 31 +++++++++++++++++++++++++++++--
+ 2 files changed, 30 insertions(+), 2 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index d1db8b5..f994dc4 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1 +1,2 @@
++_pycache_/
+ virtualenvironment/
+diff --git a/client_test.py b/client_test.py
+index af2bf26..0e3416a 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,5 +1,5 @@
+ import unittest
+-from client3 import getDataPoint
++from client3 import getDataPoint, getRatio
+ 
+ class ClientTest(unittest.TestCase):
+   def test_getDataPoint_calculatePrice(self):
+@@ -8,6 +8,9 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
++    # Assume getDataPoint returns a tuple like (stock, bid_price, ask_price, price)
++    stock, bid_price, ask_price, price = getDataPoint(quotes[0])
++    self.assertEqual(price, (quotes[0]['top_bid']['price'] + quotes[0]['top_ask']['price']) / 2)
+ 
+   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+     quotes = [
+@@ -15,10 +18,34 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++  # Assume getDataPoint returns a tuple like (stock, bid_price, ask_price, price)
++    for quote in quotes:
++        stock, bid_price, ask_price, price = getDataPoint(quote)
++        self.assertEqual(price, (quote['top_bid']['price'] + quote['top_ask']['price']) / 2)
+ 
+   """ ------------ Add more unit tests ------------ """
++  def test_getDataPoint(self):
++    quote = {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'}
++    stock, bid_price, ask_price, price = getDataPoint(quote)
++    self.assertEqual(stock, 'ABC')
++    self.assertEqual(bid_price, 120.48)
++    self.assertEqual(ask_price, 121.2)
++    self.assertEqual(price, (120.48 + 121.2) / 2)
++
++  def test_getRatio_priceB_zero(self):
++    self.assertIsNone(getRatio(1, 0))
++
++  def test_getRatio_priceA_zero(self):
++    self.assertEqual(getRatio(0, 1), 0)
++
++  def test_getRatio_greater_than_1(self):
++    self.assertGreater(getRatio(1, 0.5), 1)
++
++  def test_getRatio_less_than_1(self):
++    self.assertLess(getRatio(0.5, 1), 1)
+ 
++  def test_getRatio_exactly_one(self):
++    self.assertEqual(getRatio(1, 1), 1)
+ 
+ 
+ if __name__ == '__main__':
+-- 
+2.43.0
+
+
+From 07cbab53ba837a69115185e033946f17d47315b7 Mon Sep 17 00:00:00 2001
+From: lee690 <chrisleejean@gmail.com>
+Date: Mon, 4 Mar 2024 14:35:06 -0500
+Subject: [PATCH 9/9] rm __pycache, nb: 2 underscore in name
+
+---
+ .gitignore | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/.gitignore b/.gitignore
+index f994dc4..76e9763 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,2 +1,2 @@
+-_pycache_/
++__pycache__/
+ virtualenvironment/
+-- 
+2.43.0
+
