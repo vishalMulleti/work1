@@ -44,7 +44,6 @@ def getRatio(price_a, price_b):
     if price_b == 0:
         return "Undefined"
     ratio = price_a / price_b
-    print("ratio: ", ratio)
     return ratio
 
 
@@ -55,9 +54,17 @@ if __name__ == "__main__":
     for _ in iter(range(N)):
         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
 
-        """ ----------- Update to get the ratio --------------- """
-        for quote in quotes:
-            stock, bid_price, ask_price, price = getDataPoint(quote)
-            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+        # Initialize price outside the loop
+        price = None
 
+        """----------- Update to get the ratio ---------------"""
+        for quote in quotes:
+            stock, bid_price, ask_price, current_price = getDataPoint(quote)
+            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, current_price))
+
+            # Update price if it hasn't been set yet
+            if price is None:
+                price = current_price
+
+        # Calculate and print the ratio after processing all quotes
         print("Ratio %s" % getRatio(price, price))
