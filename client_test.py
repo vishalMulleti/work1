@@ -8,6 +8,10 @@ class ClientTest(unittest.TestCase):
       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
     ]
     """ ------------ Add the assertion below ------------ """
+    expected_prices = {'ABC': (120.48 + 121.2) / 2, 'DEF': (117.87 + 121.68) / 2}
+    for quote in quotes:
+        stock, bid_price, ask_price, price = getDataPoint(quote)
+        self.assertEqual(price, expected_prices[stock], "Incorrect price calculation")
 
   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
     quotes = [
@@ -15,6 +19,10 @@ class ClientTest(unittest.TestCase):
       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
     ]
     """ ------------ Add the assertion below ------------ """
+    expected_prices = {'ABC': (119.2 + 120.48) / 2, 'DEF': (117.87 + 121.68) / 2}
+    for quote in quotes:
+        stock, bid_price, ask_price, price = getDataPoint(quote)
+        self.assertEqual(price, expected_prices[stock], "Incorrect price calculation")
 
 
   """ ------------ Add more unit tests ------------ """
