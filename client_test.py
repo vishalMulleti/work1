@@ -24,7 +24,19 @@ class ClientTest(unittest.TestCase):
 
   """ ------------ Add more unit tests ------------ """
 
++  def test_getDataPoint_emptyQuote(self):
++       """Test if getDataPoint handles empty quotes correctly."""
++       quote = {}
++       with self.assertRaises(KeyError):
++           getDataPoint(quote)
++
++   def test_getDataPoint_missingKeys(self):
++       """Test if getDataPoint handles quotes with missing keys correctly."""
++       quote = {'timestamp': '2019-02-11 22:06:30.572453', 'id': '0.109974697771'}
++       with self.assertRaises(KeyError):
++           getDataPoint(quote)
 
+ 
 
 if __name__ == '__main__':
     unittest.main()
