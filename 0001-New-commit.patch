@@ -1,0 +1,25 @@
+From 09168ecaa99b3fb1b0a10d6b0df120dd80f9c127 Mon Sep 17 00:00:00 2001
+From: Agin Duwain <aginduwain@gmail.com>
+Date: Thu, 9 May 2024 05:48:32 -0700
+Subject: [PATCH] New commit
+
+---
+ client3.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/client3.py b/client3.py
+index 84bb890..7b8e289 100644
+--- a/client3.py
++++ b/client3.py
+@@ -42,7 +42,7 @@ def getDataPoint(quote):
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return (price_a/price_b+2)
++    return (price_a/price_b)
+ 
+ 
+ # Main
+-- 
+2.41.0.windows.3
+
