@@ -154,7 +154,7 @@ def generate_csv():
             if t > MARKET_OPEN + SIM_LENGTH:
                 break
             writer.writerow([t, stock, side, order, size])
-
+ 
 
 def read_csv():
     """ Read a CSV or order history into a list. """
