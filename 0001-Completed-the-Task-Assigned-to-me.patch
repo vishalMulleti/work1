@@ -1,0 +1,88 @@
+From 69589e1e304d23e6e4d1e28990fa31f831635ec0 Mon Sep 17 00:00:00 2001
+From: Harshal Dighe <harshaldighe1012@gmail.com>
+Date: Sat, 8 Jun 2024 12:50:08 +0530
+Subject: [PATCH] Completed the Task Assigned to me
+
+---
+ __pycache__/client3.cpython-312.pyc     | Bin 0 -> 1579 bytes
+ __pycache__/client_test.cpython-312.pyc | Bin 0 -> 1397 bytes
+ client3.py                              |   5 +++--
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+ create mode 100644 __pycache__/client3.cpython-312.pyc
+ create mode 100644 __pycache__/client_test.cpython-312.pyc
+
+diff --git a/__pycache__/client3.cpython-312.pyc b/__pycache__/client3.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..dd089c3b423745716c49d907bf82f8c6ae5f077b
+GIT binary patch
+literal 1579
+zcmah}O>7%Q6rQnn*SoPD;xsmGV#E~D5?674RS~QdR5b<_RZ$YuimVK)wRe)NV|(4*
+zHI<Dc`M|*l4yh1IDun2bpj_ZY)l-232ZR*IsuHFgia7O_CY*BO?b<GdRAQw0X5O2(
+zZ@%}l^Gh(;g<$-Ow8d!&p+6m=GlK2SVI3p1jx?m<9Fkirma!{)WUuCtIn68c8ut;B
+z1&s&vQBf0C1`#s9_8=<3?4tY@cyUH&oks6{j*#q!Q<Oc~I(r(aH{1WT+}dYfIIg2y
+z_Qm5`@Qbsa<NB?(s>7qRW>5dWtsIgN4FU6)fq5_7Akf~<_bCo^C*(dkEJxtvdCf;p
+ze1SEQ_5n&X4A?~@fc`I~&Nmo+dX_`3bpX&uBQ&zr=3Ei}$raeGbEu5VI2L^5(4489
+zUbgLGVq_#|WYpZUVcChv(aF(~>m_QI-_W%SAFk?uLB=!fth=!RL*#{dm<Cu!5~@N?
+zPr-f_+fVF3=W%qJ*TD|cRnNaHxMx^+tDaS^imRTgx5_PY@1Pi8d6mqXhE~c@qULhM
+zUZ$i#sYW&Ofto8(i`WKPq6KQIHdqi%wbi1b7i_|K%QiAA%x4=#C9P|WFPeIWwq(^>
+ziDAYs<_y)2@r=J-GHhx(!7&MJm6oXlX05FWnM4*3K%8+je<_i=YEjclUA%IIT(k{2
+zHCxUst7aa^W@*N@QpK{pY!se|i-xH#(Rj9)&%~`8G;V|M_*g2F(`mt;7%rAsV2Rq(
+zK!4VuZ#usYaV~uupoSiDQ+t8X+AAN=)RMpVgxBcC<woS}?Hi5ANV8|OcKKPly+F8@
+z-1GOW#Wof;`E7rEn~NWUH<bBrPrDU$LUbw$9pb6HMBbt{fu!mNF&2rN4@D(vL2K{R
+z<dIYFZ&1v`eC^}TCT%$v5Ml;kVIsse?>I91Ks*Q25&>E<`2%LRYosW7RWB$?#W&~F
+zLL(K4s5TjdY9uPc5P@_hD&kP<_QVm6RYcb*Ib+36GA?Tw1tyrl&&adxl9|it>0y&X
+zFIzSfS~BD3t|sRf7@l#n>(XJOq7>9TRTReQ&;pDHA4`;Bh4IiFn#Ft_FFx>M6e(N-
+zwalwF<4me*OmKV0GU4q*ZU>ppduaL{a8l~_9TYU=D4bZ`tQ?6`dFbjKecgmd4mqi`
+zb^-Ri7~{ip2nQaZ-~$xi7mzem<6+^&8a@zwc=({ti-Y^!hzry!JKj@&1VcB^Y~arZ
+zKY9NEiTp$z?}Y}|`qukz_HVrT)y%D#-RO8DI{xkX@29?-x);1B{2crt_|tREiP>g!
+zZZ~?Z5xv%ozS|5f)P;xQrM>XL0rE&1t|xyRyKsj#$EF*B;d*lIwGDkU%mSgir62X3
+xIe90gZuh3|2QvG-WBph}Qg=OjYw~t-^L%q)tkFGoUmSlN0zUgZ;`-gd{|2%<h&ccN
+
+literal 0
+HcmV?d00001
+
+diff --git a/__pycache__/client_test.cpython-312.pyc b/__pycache__/client_test.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..76816a7826c346495fa43f150282d3936585dcae
+GIT binary patch
+literal 1397
+zcmcIk&1)M+6rY*hl@v#o?GVz$HH~6gh$s@0oJ6s4jTJc`2itYPEmX)|Haly1t^H7D
+zR}B&rT(D`6z2%ZWz$Vah|A!`!^wKb;(9(l3?Lm!l@~Q8wq`Du6&_f3HH}B2+y*F>>
+zz1i<ZM@I;Zr-X0rtAzZD%5Z1{q1OcAA>o8mhg5N94s}_TQNqY=!j)aZRf}xLhK?um
+zW2G-wRZHVq<1!)Q3?slzo^XcJ<AFd)o3?2tc7*zBhRS5!3YUz~So3W!G>3GY=|Jh7
+z2jL;atx`^^jMH6GRX77w+e${2BNfNCyl~wLLUZVYu5tJ<!`?gqoRD(Hl}C)LT;s7w
+zit_|N^+@9*{Pe(*<f8*i3N3Z^Ic<~7*lPXh6Bx^%E*`xL!48<zn!+|MsRnk(I-V@%
+z3$xjLF<U64i^aM8wYiym?rN!c<?77g#l7F|e)|qMy5M-6%I6CC+1b*SYqO<NsUVf|
+zjmm*0<DuWwji4b<g|-XlFx+N;?VimggHH=W-)tQI4x#oM5DcnG4)6TZIs46njm4w8
+zph;!v=B)!vO${t(Q^xMM{Ll&l2DWti_~Xi4?W4dFL9M*JoGyocwYJtaw+!K~34hx%
+z!=Tn|hg-h)m%8Z-qi$ulo35D+9$48B^2-)#W^~y)gbs7fwoId-|GkE~X*g!fF+yt%
+zuc-6>NqKUwBV$wcJb)eY^VFsN;`1}PXCHj>tod1&kTP3he-KiqHyLOvYy+n)=Hg=9
+zV=tzr_sjp}SNi-VBrdZWPIcx)e3x}KB^BGb)lCp>p$9vXH{3f<HWmeTq(~r~M!;tx
+zMiEj7V+i92=MdgPz}6QR5GE1cMwkK^lvP{=Sr%S*tv76bTUbyLvA$(^<)G1-{~ty9
+zk9U;!B}`=+U^S!3gsyvrYw5Zi(RJ77EeGYKuHSDNPTwNZ=zy=Me+qPs(id3t2(YPx
+z34mSll4;7q%M?I&oG90$jUo<i<r=o9>zTMrv^+b+!^?QTEoTHic$rv-wTc1l9>snS
+z*HrZS*Vf00`F^qsA`2Y+c?2bZu0kpOk&OLB(y!EUdj0G3KTJ$NpO}6{K<Qp4YVxbj
+Z_sWGA>cq~SFIT=;+551o5Op%j@=xSBZgT(t
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..3eccd87 100644
+--- a/client3.py
++++ b/client3.py
+@@ -41,8 +41,9 @@ def getDataPoint(quote):
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+-    """ ------------- Update this function ------------- """
+-    return 1
++    if price_b == 0:
++        return None
++    return price_a / price_b
+ 
+ 
+ # Main
+-- 
+2.45.1.windows.1
+
