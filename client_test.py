@@ -17,20 +17,20 @@ class ClientTest(unittest.TestCase):
     ]
     """ ------------ Add the assertion below ------------ """
 
-  def test_getRatio_calculation_for_different_prices(result):
+  def test_getRatio_calculation_for_different_prices(self):
     """Tests that getRatio returns the correct ratio for different prices."""
 
     # Test with positive prices
-    result = getRatio(10, 5)
-    assert result == 2.0, "Ratio of positive prices is incorrect"
+    self = getRatio(10, 5)
+    assert self == 2.0, "Ratio of positive prices is incorrect"
 
     # Test with negative prices
-    result = getRatio(-3, 2)
-    assert result == -1.5, "Ratio of negative prices is incorrect"
+    self = getRatio(-3, 2)
+    assert self == -1.5, "Ratio of negative prices is incorrect"
 
     # Test with zero as the second price
-    result = getRatio(12, 0)
-    assert result is None, "Ratio shouldn't be calculated when price_b is zero"
+    self = getRatio(12, 0)
+    assert self is None, "Ratio shouldn't be calculated when price_b is zero"
 
   """ ------------ Add more unit tests ------------ """
 
