@@ -29,31 +29,34 @@ QUERY = "http://localhost:8080/query?id={}"
 N = 500
 
 
-def getDataPoint(quote):
-    """ Produce all the needed values to generate a datapoint """
-    """ ------------- Update this function ------------- """
-    stock = quote['stock']
-    bid_price = float(quote['top_bid']['price'])
-    ask_price = float(quote['top_ask']['price'])
-    price = bid_price
-    return stock, bid_price, ask_price, price
+def getDataPoint(stock):
+    """ Produce all of the needed values to generate a datapoint """
+    stock_name, bid_price, ask_price = stock['name'], float(stock['bid_price']), float(stock['ask_price'])
+    price = (bid_price + ask_price) / 2
+    return stock_name, bid_price, ask_price, price
+
 
 
 def getRatio(price_a, price_b):
-    """ Get ratio of price_a and price_b """
-    """ ------------- Update this function ------------- """
-    return 1
+    """ Get ratio of price_a to price_b """
+    if price_b == 0:
+        return None
+    return price_a / price_b
 
 
-# Main
-if __name__ == "__main__":
-    # Query the price once every N seconds.
-    for _ in iter(range(N)):
-        quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+def main():
+    query = json.loads(urllib.request.urlopen("http://localhost:8080/query").read())
+    
+    prices = {}
+    
+    for stock in query:
+        stock_name, bid_price, ask_price, price = getDataPoint(stock)
+        prices[stock_name] = price
+        print(f"Quoted {stock_name} at (bid:{bid_price}, ask:{ask_price}, price:{price})")
 
-        """ ----------- Update to get the ratio --------------- """
-        for quote in quotes:
-            stock, bid_price, ask_price, price = getDataPoint(quote)
-            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
-
-        print("Ratio %s" % getRatio(price, price))
+    price_a = prices.get("A")
+    price_b = prices.get("B")
+    
+    if price_a is not None and price_b is not None:
+        ratio = getRatio(price_a, price_b)
+        print(f"Ratio {ratio}")
