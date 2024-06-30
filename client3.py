@@ -1,59 +1,42 @@
-################################################################################
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a
-#  copy of this software and associated documentation files (the "Software"),
-#  to deal in the Software without restriction, including without limitation
-#  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-#  and/or sell copies of the Software, and to permit persons to whom the
-#  Software is furnished to do so, subject to the following conditions:
-#
-#  The above copyright notice and this permission notice shall be included in
-#  all copies or substantial portions of the Software.
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-#  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-#  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-#  DEALINGS IN THE SOFTWARE.
+class Car:
 
-import json
-import random
-import urllib.request
+    def __init__(self, speed=0):
+        self.speed = speed
+        self.odometer = 0
+        self.time = 0
 
-# Server API URLs
-QUERY = "http://localhost:8080/query?id={}"
+    def accelerate(self):
+        self.speed += 5
 
-# 500 server request
-N = 500
+    def brake(self):
+        self.speed -= 5
+
+    def step(self):
+        self.odometer += self.speed
+        self.time += 1
+
+    def average_speed(self):
+        return self.odometer / self.time
 
 
-def getDataPoint(quote):
-    """ Produce all the needed values to generate a datapoint """
-    """ ------------- Update this function ------------- """
-    stock = quote['stock']
-    bid_price = float(quote['top_bid']['price'])
-    ask_price = float(quote['top_ask']['price'])
-    price = bid_price
-    return stock, bid_price, ask_price, price
+if __name__ == '__main__':
 
-
-def getRatio(price_a, price_b):
-    """ Get ratio of price_a and price_b """
-    """ ------------- Update this function ------------- """
-    return 1
-
-
-# Main
-if __name__ == "__main__":
-    # Query the price once every N seconds.
-    for _ in iter(range(N)):
-        quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
-
-        """ ----------- Update to get the ratio --------------- """
-        for quote in quotes:
-            stock, bid_price, ask_price, price = getDataPoint(quote)
-            print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
-
-        print("Ratio %s" % getRatio(price, price))
+    my_car = Car()
+    print("I'm a car!")
+    while True:
+        action = input("What should I do? [A]ccelerate, [B]rake, "
+                        "show [O]dometer, or show average [S]peed?").upper()
+        if action not in "ABOS" or len(action) != 1:
+            print("I don't know how to do that")
+            continue
+        if action == 'A':
+            my_car.accelerate()
+            print("Accelerating...")
+        elif action == 'B':
+            my_car.brake()
+            print("Braking...")
+        elif action == 'O':
+            print("The car has driven {} kilometers".format(my_car.odometer))
+        elif action == 'S':
+            print("The car's average speed was {} kph".format(my_car.average_speed()))
+        my_car.step()
