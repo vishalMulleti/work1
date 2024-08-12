@@ -1,4 +1,10 @@
 import unittest
+import unittest
+import urllib.request
+from random import random
+
+
+from client3 import  getRatio, getDataPoint, QUERY
 from client3 import getDataPoint
 
 class ClientTest(unittest.TestCase):
@@ -18,6 +24,24 @@ class ClientTest(unittest.TestCase):
 
 
   """ ------------ Add more unit tests ------------ """
+  def test_getRatioFn_divideByZero(self):
+
+    price_a = 10
+    price_b = 0
+
+    assert getRatio(price_a, price_b) ==None
+
+  def test_getRatioFn_divideByValidNum(self):
+    price_a = 18
+    price_b = 2
+
+    assert getRatio(price_a, price_b) == 9
+
+  def printF(param):
+    pass
+
+
+
 
 
 
