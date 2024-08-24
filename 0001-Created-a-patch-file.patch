@@ -1,0 +1,317 @@
+From 3ce645a36ea307413eac241f23d151e91c2c63fc Mon Sep 17 00:00:00 2001
+From: Srinidhi Sakinala <srinidhisakinala48@gmail.com>
+Date: Sat, 24 Aug 2024 15:52:43 +0530
+Subject: [PATCH] Created a patch file
+
+---
+ .idea/.gitignore                              |   3 ++
+ .idea/forage-jpmc-swe-task-1.iml              |  14 +++++
+ .../inspectionProfiles/profiles_settings.xml  |   6 +++
+ .idea/misc.xml                                |   7 +++
+ .idea/modules.xml                             |   8 +++
+ .idea/vcs.xml                                 |   6 +++
+ __pycache__/client3.cpython-312.pyc           | Bin 0 -> 1606 bytes
+ __pycache__/client_test.cpython-312.pyc       | Bin 0 -> 2417 bytes
+ client3.py                                    |  16 +++---
+ client_test.py                                |  50 +++++++++++++-----
+ server3.py                                    |   4 +-
+ 11 files changed, 91 insertions(+), 23 deletions(-)
+ create mode 100644 .idea/.gitignore
+ create mode 100644 .idea/forage-jpmc-swe-task-1.iml
+ create mode 100644 .idea/inspectionProfiles/profiles_settings.xml
+ create mode 100644 .idea/misc.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/vcs.xml
+ create mode 100644 __pycache__/client3.cpython-312.pyc
+ create mode 100644 __pycache__/client_test.cpython-312.pyc
+
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+index 0000000..26d3352
+--- /dev/null
++++ b/.idea/.gitignore
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+diff --git a/.idea/forage-jpmc-swe-task-1.iml b/.idea/forage-jpmc-swe-task-1.iml
+new file mode 100644
+index 0000000..7a6134d
+--- /dev/null
++++ b/.idea/forage-jpmc-swe-task-1.iml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/.venv" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++  <component name="PyDocumentationSettings">
++    <option name="format" value="PLAIN" />
++    <option name="myDocStringFormat" value="Plain" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+index 0000000..105ce2d
+--- /dev/null
++++ b/.idea/inspectionProfiles/profiles_settings.xml
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+index 0000000..ff86b81
+--- /dev/null
++++ b/.idea/misc.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.12 (forage-jpmc-swe-task-1)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (forage-jpmc-swe-task-1)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000..973696f
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/forage-jpmc-swe-task-1.iml" filepath="$PROJECT_DIR$/.idea/forage-jpmc-swe-task-1.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+index 0000000..35eb1dd
+--- /dev/null
++++ b/.idea/vcs.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/__pycache__/client3.cpython-312.pyc b/__pycache__/client3.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..ec1bdd6a1593c7a3139d30a81c13aaaca9462985
+GIT binary patch
+literal 1606
+zcmah}O-vg{6rQnn*EaqE8!!P}bx});8-79}8j7G1DInz#1gRR8742&A4zR}dI=kye
+zY(cWB9*k5~j(UKos!G%g6_=nM8ugU6hpOrYV?}X?s-o&CHxhc{)HiF~QW2>m?fd!W
+zy*F>(d$Yd;gLMejpF2O#2YtYqQd_|j;b;>hw2oAy;uMmq981{IU6NaMNu27Ic$NDY
+zNrK7)^$@QrEOjAdeB(mI2VWiGw;>8!H9m&kyN8hEhh3CBSKT{Ji96YLTCd8<7tUgY
+zOTKs(g}6BBI*V_gK(#z-JlXO8wo+I_QiOyd_c-L<2xkbSu@+&L1FT7EmZDM%X(18P
+zGz=lZ=A7ywO`l`cOPYcDNEB!tX#wj0!dLUg=#%qY)j9w^9uiT5t>6zl#Q65fU2Ngs
+z8iLPP99qW9I9~sRr9WwRELv7}sIM=jCzRBpZdyZw7Y6(LZsmxvd__}7K3vuQf=(n(
+zy1|?f<c-|$9i@P*qZQ~hJ8>0T|5yR$Vwmc7ayh|QUH`G*o@3!&ajm#*=E>WBh{>&B
+zhOBV&+}kKF*q6mALsxSNA}XnrXe|;kLx@UL@dG85Bc^ES;sVJKL$Sa@R256f>RQGU
+zDQ{YOVu^YzJuA;?D&@0=mLOGKF_)gOa>X&_=To|3#d*r#%IOv{*j=d)9OSCK4{WQV
+z0fj{-4@6|^_~o&o*?HYi7D!Jrn@;qYw@Hr$);;~RiIhe%)}`L;G7T&cYYeiQVp$m>
+z=FP%P1IeR<K)Cqo+GKwGw}$2-*|=7UzOs3{6zwZFT*zO09##oPi_4{;xY<z(yp$iW
+z_#2AxjhQWe*Wa_t^&CM^lsG-pOm;fQo(gmhtJryWcp3Sik1Lqf9O~?vG??kvAW@HV
+zaapMeb0*soMT0$f>V^B<P%KS1nm~mqM<(lP9#uS{BL2v(ctaJg`@kP5US7Mh%e5Kx
+zj+ZQ_6)hvnwr84^Sru)cs90hb6ne-Ox<#nlknQajowJ9IaoqMgr-+><b&p<si@L|g
+zC*rM?OPYFy3WkzV^)wCTj8saS>oo|>uW3=Cs#AXYo$(tp6i+$@cQU13S<WbFBFmK1
+zpwE<t7z>1Anes3Js!2VyC?1HSX9*kw?M*8d<qV>zRB#5wq=J*9X|O+|GcE?y5E%hR
+z*oZij2E7h5fZg6H+_85!4Rf3#ZyM(TV-Ljq9mt^@V|?@)!hwAh+(*ra0`hg|d0@OZ
+zkDmzw?tK>Far<Eeae;!p=WhKY7{1fFfj{f|^!);^gxiZv>uq=1HYUEDygT_gcCi$@
+zcz@vA;ho`!!H2?6!S91V)|W3$m1EP7V>e5&o8{QM<?u{FI0!cug#G6B!uYTKBM(Tq
+zf2<VfEsPi6*wD6`E3uBkL~&s4It_%s%l)A3O-p;T%5G%tQ6O>XLDAULI^+u#l6MC;
+jC$<LeUBCbOgU+3ia{Fj0H2TPU^=Tst#SVFN(*3^yQH+T^
+
+literal 0
+HcmV?d00001
+
+diff --git a/__pycache__/client_test.cpython-312.pyc b/__pycache__/client_test.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d11a9054a39b36609aa5df3bfe62d131c5e317f
+GIT binary patch
+literal 2417
+zcmd^BT}%{L6ux(Ub_ZM#R$CW~{Q1YC&|N^b82=Fbi*>7pG<G9S$GyXLV1Mw=5XuG;
+zn`p{IANr=IB=r$O)6hQIH~VH&+w8P4l4+CL^nsA}0bSb%`qFb|7f`A-?Q3tc-<*5T
+zx#yny%{gcG>$0*^0^{S)zv>@R2>Ask%R?>-c?*PVgb_xQB!*8RNmD{hNQp6#5`i2e
+zOuRyvq>};gv3AUeg_W4Bdzd`fNC@`}1Z>OKS`so-T%u%@j?$oK0q4=6;P?`{)uUP3
+z>5P%K90g`)HOt7vpL9Wsll(RiuE7a0%1BIL^a_cIOaPQH&X~+3K+mWg^f;y6NkdOt
+zy}D_|m-nL^ya&de{}ur5PMN^ONr6dBW*%4aGKG~)%B+;FD{6eKtf(nRO+px_W3-3#
+z^$;>Hj0tRg75HKmh%l>Mon>*|pIrxb;usltG7iw-u!<bw&Y7Yfd~7KCdama&v0s`I
+z3O*?L;HX4KNpNE{@y%TruU|N{fK*Kjjy%MTxb8@%k=2(rw}!%<&7s!jaJa6ub#JI+
+zZ(FEkPo%YdPuqO$)nCuts)3Cu*tk?4Y6*urJ0tBKosmc+?1){5yQgKxYh{L1%^Y+}
+zEF%TXYN?^Z+C_so0{mpt%ESlfe*;%n2f>*H&gPH*oZa~8NZ+A_Gca?+o+C&3Mvyor
+zDE9*_;6?b$01)vy%`|mx9l12DB{{M)EkXEtvfuGs8qQd{=}^Nd*WVq|<Ce};_kJdx
+zQwL+Iv1jl3{tVX=dh@_gD&B04=*<>H+#Eh1cN0Pd4_3?2s8ff6`egR0aV;4iPHL8Z
+z8cECUT1}yr7a4mYfcz%_m&t>MowI&B(4Om7=NcMkx7vY@+<|EBtqTuDTJ|=50BiND
+z>IOToC%6Ap?pz<LRl4Yv{iPG0ypQ+;6J2vPwKq#{B&Q;FP1~$?tK_rf?TFoR(ylpq
+z=aRkU^h9*dS8?B0ZTqSx&rj8Vq@um|#=unl)QRccvm<uX!P}L$JHM>Hld!wq%$@7c
+zZAttN#~AdX4F2;FFZmx;$Glq|cl!=;>;k+5!G}<WfL)8PN2oxkMA(E7K){0Jn-N|?
+zcshZ3HLhU-^DPLq04q7ku@s%~i!$i2!H#hql8^Vkqoupd!R)?&k$->Ny#eFcfv^+c
+zsh5n!;<mu!AYcm|hbA~KSS#&mj6yRiHW#;Xtu!gvP#j|-6PInEsgs}-EzlSQgTxnq
+zTzv57uEm2vf#Yes24Gs^b?|V!Zpo_JvT)InIkx;Ygss%4`#o5#&F&26Q2NQyXV&NQ
+zjNLZ^Uns0kC@k-sf768b$BMx9O*eObU(qxn&ndq9O2AeE*I&9>eouMzA80!YZvH!M
+z%U#|jO)QdzWEZ(|e1!&h!i;9pI^PYNHOvH-Q>k!Sm(Ig6ooBLJpOG<ZjW8!ngcT+>
+zJcEfUTdBIf{hm_i@(>Mr9Ys~sT1r<{r&Lu_88)0m*{7=5s0$jt9o+IJgb+d-z;q!2
+z-6G%~Tt&ctASTw;74k?bl@0nRP(WD@<;!Kc-aXbe#e-9tkyh29;wZyu!@}!3-a<QX
+zb3YMok~vB*D7rQHdbsDbgL_B9tvmu^!Q(cNmXv*k_z&>?FvYYtUjtYaDWyM<^*@oO
+x$DSRu{=>li$_Bf#;W2^9;#o>0-$eF1v1(4LynOuqQ}3O+`o^M2q|L79zW^MyNrV6Z
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..a67a4b4 100644
+--- a/client3.py
++++ b/client3.py
+@@ -23,7 +23,7 @@ import random
+ import urllib.request
+ 
+ # Server API URLs
+-QUERY = "http://localhost:8080/query?id={}"
++QUERY = "http://localhost:8081/query?id={}"
+ 
+ # 500 server request
+ N = 500
+@@ -31,18 +31,19 @@ N = 500
+ 
+ def getDataPoint(quote):
+     """ Produce all the needed values to generate a datapoint """
+-    """ ------------- Update this function ------------- """
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price+ask_price)/2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
++    if price_b==0:
++        return
+     """ Get ratio of price_a and price_b """
+-    """ ------------- Update this function ------------- """
+-    return 1
++
++    return price_a/price_b
+ 
+ 
+ # Main
+@@ -51,9 +52,10 @@ if __name__ == "__main__":
+     for _ in iter(range(N)):
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+-        """ ----------- Update to get the ratio --------------- """
++        prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[stock] = price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(prices["ABC"], prices['DEF']))
+diff --git a/client_test.py b/client_test.py
+index af2bf26..215cb30 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,24 +1,46 @@
+ import unittest
+-from client3 import getDataPoint
++from client3 import getDataPoint, getRatio
++
+ 
+ class ClientTest(unittest.TestCase):
+-  def test_getDataPoint_calculatePrice(self):
+-    quotes = [
+-      {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
+ 
+-  def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+-    quotes = [
+-      {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
++    def test_getDataPoint_calculatePrice(self):
++        quotes = [
++            {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453',
++             'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++            {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453',
++             'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++        ]
++        for i in quotes:
++            expected_price = (i['top_bid']['price'] + i['top_ask']['price']) / 2
++            self.assertEqual(getDataPoint(i),
++                             (i['stock'], i['top_bid']['price'], i['top_ask']['price'], expected_price))
+ 
++    def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
++        quotes = [
++            {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453',
++             'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++            {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453',
++             'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++        ]
++        for i in quotes:
++            expected_price = (i['top_bid']['price'] + i['top_ask']['price']) / 2
++            self.assertEqual(getDataPoint(i),
++                             (i['stock'], i['top_bid']['price'], i['top_ask']['price'], expected_price))
+ 
+-  """ ------------ Add more unit tests ------------ """
++    def test_getRatio_calculateCorrectly(self):
++        # Test for correct ratio calculation
++        price_a = 120.48
++        price_b = 119.2
++        ratio = getRatio(price_a, price_b)
++        self.assertEqual(ratio, 120.48 / 119.2)
+ 
++    def test_getRatio_priceBZero(self):
++        # Test when price_b is 0 to avoid division by zero
++        price_a = 120.48
++        price_b = 0
++        ratio = getRatio(price_a, price_b)
++        self.assertIsNone(ratio)  # Assuming getRatio should return None if price_b is zero
+ 
+ 
+ if __name__ == '__main__':
+diff --git a/server3.py b/server3.py
+index 1836de2..34e447f 100644
+--- a/server3.py
++++ b/server3.py
+@@ -216,7 +216,7 @@ def get(req_handler, routes):
+                 return
+ 
+ 
+-def run(routes, host='0.0.0.0', port=8080):
++def run(routes, host='0.0.0.0', port=8081):
+     """ Runs a class as a server whose methods have been decorated with
+         @route.
+     """
+@@ -232,7 +232,7 @@ def run(routes, host='0.0.0.0', port=8080):
+     thread = threading.Thread(target=server.serve_forever)
+     thread.daemon = True
+     thread.start()
+-    print('HTTP server started on port 8080')
++    print('HTTP server started on port 8081')
+     while True:
+         from time import sleep
+         sleep(1)
+-- 
+2.43.0.windows.1
+
