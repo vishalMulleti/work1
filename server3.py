@@ -1,5 +1,4 @@
 ################################################################################
-#
 #  Permission is hereby granted, free of charge, to any person obtaining a
 #  copy of this software and associated documentation files (the "Software"),
 #  to deal in the Software without restriction, including without limitation
@@ -334,7 +333,7 @@ class App(object):
 # Main
 
 if __name__ == '__main__':
-    if not os.path.isfile('test.csv'):
+    if not os.path.isfile('03ayush09/forage-jpmc-swe-task-1/test.csv'):
         print("No data found, generating...")
         generate_csv()
     run(App())
